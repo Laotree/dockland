@@ -19,9 +19,6 @@ Yet another docker web ui.
 ## Deploying dockland inside a docker container
 
 ### Dockerfile
-  
-__NOTE__: something is broken with graphs served from a docker container. I suspect the graphviz version shipping with ubuntu 12.04 
-
     # /tmp/dockland.dockerfile
     FROM ubuntu:12.04
 
@@ -34,7 +31,7 @@ __NOTE__: something is broken with graphs served from a docker container. I susp
     RUN cd /app && gem install bundler --no-ri --no-rdoc && bundle
 
     # change the revision to update your image
-    ENV APP_REVISION 1e46db36e91f39eb1101e1aa3e3c570ae055035b
+    ENV APP_REVISION 51f5445abeeb080568edeca248d68b29a66f1387
     RUN cd /app && git fetch -q origin  && git reset -q --hard $APP_REVISION && git clean -q -d -x -f && bundle
 
     EXPOSE 80
