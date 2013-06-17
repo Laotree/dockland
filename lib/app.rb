@@ -40,15 +40,24 @@ class App < Sinatra::Application
     slim :images, locals: { images: client.images }
   end
 
+  get "/images.dot" do
+    url = URI(request.url)
+    url = "#{url.scheme}://#{url.host}:#{url.port}"
+    graph = client.images_tree.to_digraph(url)
+    content_type "text/plain"
+    graph
+  end
+
   get "/images.:format" do
+    url = URI(request.url)
+    url = "#{url.scheme}://#{url.host}:#{url.port}"
+    graph = client.images_tree.to_digraph(url)
+
     if params[:format] == "svg"
       content_type "image/svg+xml"
     else
       content_type "application/#{params[:format]}"
     end
-    url = URI(request.url)
-    url = "#{url.scheme}://#{url.host}:#{url.port}"
-    graph = client.images_tree.to_digraph(url)
     format = params[:format] || "pdf"
     type = params[:type] || "dot"
     stdout, status = Open3.capture2("#{type} -T #{format}", stdin_data: graph)

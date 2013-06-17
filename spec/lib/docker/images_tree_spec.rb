@@ -26,7 +26,7 @@ describe "Docker::ImagesTree" do
 
     describe "first image" do
       subject(:line) { arr.join(" ") }
-      it { should include("label=\"7651a18e\n\",shape=box,URL") }
+      it { should include("label=\"7651a18e\"") }
       it { should include("\"3c2091c7\" -> \"7651a18e\"") }
     end
   end

@@ -35,10 +35,10 @@ module Docker
     end
 
     def serialize_image(image, base_url)
-      label = [[shorten_id(image.id)] + image.tags].join("\n")
+      label = [[shorten_id(image.id)] + image.tags].flatten.compact.reject { |s| s.to_s.strip.length == 0 }.join("\\n").strip
 
       out = [
-        %( "#{shorten_id(image.id)}" [label="#{label}",shape=box,URL="#{base_url}/images/#{image.id}",target="image_#{shorten_id(image.id)}"];)
+        %( "#{shorten_id(image.id)}" [label="#{label.strip}", margin="0.20,0.20", URL="#{base_url}/images/#{image.id}", target="image_#{shorten_id(image.id)}"];)
       ]
       if image.parent
         out << %(  "#{shorten_id(image.parent)}" -> "#{shorten_id(image.id)}" )
