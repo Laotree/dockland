@@ -19,6 +19,8 @@ Yet another docker web ui.
 ## Deploying dockland inside a docker container
 
 ### Dockerfile
+  
+__NOTE__: something is broken with graphs served from a docker container. I suspect the graphviz version shipping with ubuntu 12.04 
 
     # /tmp/dockland.dockerfile
     FROM ubuntu:12.04
